@@ -26,8 +26,8 @@ const ItemComponent =(props) =>{
                 <div className="card mt-5">
                     <div className="card-body">
                         <p>{title}</p>
-                        <img  src={urlImage} alt="" />
                         <p>{description}</p>
+                        <img width={400} height={300} src={urlImage} alt="" />
                         <p>${price}</p>
                         <p>Cantidad disponible: {stock}</p>
                         <ItemCount stockAdd={handlerActionAdd}stockRemove={handlerActionRemove}/>  
