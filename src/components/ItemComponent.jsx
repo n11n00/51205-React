@@ -4,7 +4,10 @@ import ItemCount from "./ItemCount";
 
 
 const ItemComponent =(props) =>{
-    const {title,urlImage,description,price,handlerUpdate} = props;
+
+    const {data,handlerUpdate} = props;
+    const {title,urlImage,description,price} =data;
+
     const [stock,setStock ] = useState(10);
     const handlerActionAdd = () => {
         if(stock > 0){
@@ -20,13 +23,14 @@ const ItemComponent =(props) =>{
             handlerUpdate ();
     }
 
-        return(
+        return (
             <>
-                <div className="card">
+
+                <div className="card mt-5">
                     <div className="card-body">
                         <p>{title}</p>
-                        <img  src={urlImage} alt="" />
                         <p>{description}</p>
+                        <img width={300} height={300} src={urlImage} alt="" />
                         <p>${price}</p>
                         <p>Cantidad disponible: {stock}</p>
                         <ItemCount stockAdd={handlerActionAdd}stockRemove={handlerActionRemove}/>  
