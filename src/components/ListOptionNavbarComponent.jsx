@@ -6,8 +6,8 @@ const ListOptionNavbarComponent = (props) => {
 
     return (
         <div className="navbar-nav">
-            {nameOption.map((nameItem,index) => {
-                return <OptionNavbarComponent key={index} titleOption={nameItem} />;
+            {nameOption.map((Item,index) => {
+                return  <OptionNavbarComponent key={index} titleOption={Item} />;
             })}
         </div>
     );

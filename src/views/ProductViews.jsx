@@ -13,6 +13,7 @@ const BASE_URL = "https://fakestoreapi.com/products"
 const ProductViews = (props) => { 
     const [count,setCount] = useState(0);
     const {data, loading} = useFetch(BASE_URL);
+    console.log(data)
     
 
     const updateCount = () =>{

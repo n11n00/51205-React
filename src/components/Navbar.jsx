@@ -2,10 +2,18 @@ import React from 'react'
 import CarWidget from './CartWidget'
 import ListOptionNavbarComponent from './ListOptionNavbarComponent';
 import { NavLink } from 'react-router-dom';
+import useFetch from '../utils/useFetch';
 
 
+const BASE_URL = "https://fakestoreapi.com/products/categories"
 const Navbar = (props) => {
-      const nameOption = ["Remeras","Pantalones","Camperas","Camisas"];
+  const {data} = useFetch(BASE_URL);
+      // const nameOption = [
+      //   { name :"Remeras" , link: "products/category/remeras" },
+      //   { name :"Pantalones" , link: "products/category/remeras" },
+      //   { name :"Camperas" , link: "products/category/remeras" },
+      //   { name :"Camisas" , link: "products/category/remeras" },
+      //   ];
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -19,7 +27,7 @@ const Navbar = (props) => {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ListOptionNavbarComponent nameOption={nameOption}></ListOptionNavbarComponent>
+            <ListOptionNavbarComponent nameOption={data}></ListOptionNavbarComponent>
           </div>
             <CarWidget/>
         </div>
