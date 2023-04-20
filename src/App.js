@@ -6,16 +6,18 @@ import AboutViews from "./views/AboutViews";
 import DetailProducts from "./views/DetailProductsView";
 import DetailProductsView from "./views/DetailProductsView";
 import CategoryView from "./components/CategoryView";
+import { routes } from "./utils/Routes";
+
 
 function App() {
   return (
     <BrowserRouter>
         <Navbar/>
         <Routes>
-            <Route path="/" element={<ProductViews/>}/>
-            <Route path="/about" element={<AboutViews/>}/>
-            <Route path="/products/detail/:idProduct" element={<DetailProductsView/>}/>
-            <Route path="/products/category/${titleOption}" element={<CategoryView/>}/>
+            <Route path={routes.root} element={<ProductViews/>}/>
+            <Route path={routes.about} element={<AboutViews/>}/>
+            <Route path={routes.detailProductView} element={<DetailProductsView/>}/>
+            <Route path={routes.categoryView} element={<CategoryView/>}/>
         </Routes>
     </BrowserRouter>
   );

@@ -2,7 +2,7 @@
 
 import ItemListContainer from '../components/ItemListContainer';
 import ItemComponent from '../components/ItemComponent';
-import { useState,  } from 'react';
+import { useState  } from 'react';
 import useFetch from '../utils/useFetch';
 const BASE_URL = "https://fakestoreapi.com/products"
 
