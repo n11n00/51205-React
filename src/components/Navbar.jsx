@@ -1,6 +1,7 @@
 import React from 'react'
 import CarWidget from './CartWidget'
 import ListOptionNavbarComponent from './ListOptionNavbarComponent';
+import { NavLink } from 'react-router-dom';
 
 
 const Navbar = (props) => {
@@ -9,9 +10,11 @@ const Navbar = (props) => {
       <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
-          <span className="navbar-brand" href="#">
+          
+            <NavLink className="navbar-brand" to="/">
             <img src="../img/brand.ico" alt="" />Tienda
-            </span>
+            </NavLink>
+            
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>

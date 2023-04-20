@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import ItemCount from "./ItemCount";
-
+import { NavLink } from "react-router-dom";
 
 
 const ItemComponent =(props) =>{
 
     const {data,handlerUpdate} = props;
-    const {title,urlImage,description,price} =data;
+    const {id: idProduct, title, image, description, price, stock} =data;
+    const [_stock,_setStock ] = useState (stock || 10);
 
-    const [stock,setStock ] = useState(10);
     const handlerActionAdd = () => {
-        if(stock > 0){
-            setStock(stock-1);
+        if(_stock > 0){
+            _setStock(_stock-1);
             handlerUpdate ();
         }else{
             alert("Sin stock diponible del producto selecionado");
@@ -19,21 +19,37 @@ const ItemComponent =(props) =>{
     };
 
     const handlerActionRemove = () => {
-            setStock(stock+1);
+            _setStock(stock+1);
             handlerUpdate ();
     }
+
+    // const showShortValue = (value="", lengthMax = 45) => {
+    //     return value.length > lengthMax ? value.substring (0, lengthMax).contact(" ...") : value;
+    // }
+
+
+
 
         return (
             <>
 
-                <div className="card mt-5">
-                    <div className="card-body">
-                        <p>{title}</p>
-                        <p>{description}</p>
-                        <img width={300} height={300} src={urlImage} alt="" />
-                        <p>${price}</p>
-                        <p>Cantidad disponible: {stock}</p>
+                <div className="card shadow-sm">
+                    <div className="card-header">
+                        {title}
+                        <NavLink to={`/products/detail/${idProduct}`}>
+                            <button className="btn btn-outline-info btn-sm" onClick={handlerActionAdd}>
+                               + info
+                            </button>
+                        </NavLink>
+                        <img width={300} height={300} src={image} alt="" />
+                        <div className="card-body">
+                        <p className="text-muted">{description}</p>
+                        <p>
+                            ${price} - Cantidad disponible: {_stock}
+                        </p>
+                        
                         <ItemCount stockAdd={handlerActionAdd}stockRemove={handlerActionRemove}/>  
+                        </div>
                     </div>  
                 </div>           
             </>
