@@ -6,20 +6,21 @@ import GeneralContext from "../context/GeneralContext";
 import useFirestore from "../utils/useFirestore";
 
 // const BASE_URL = "https://fakestoreapi.com/products"
-const nameCollection = "items"
+const nameCollection = "Items"
 
 const DetailProductsView = () => {
     const { idProduct:documentId } = useParams();
     const {addToCart,cart} = useContext(GeneralContext);
 
 
-    const {data} = useFirestore ({nameCollection,documentId });
+    const [data] = useFirestore ({nameCollection,documentId });
     const {title, image, description, price, category} = data;
 
 
     const addBtnAction = () => {
         addToCart(data);
         console.log(cart);
+        alert("Agregado al carrito!!")
     };
 
 

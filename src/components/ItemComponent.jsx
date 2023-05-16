@@ -53,7 +53,7 @@ const ItemComponent =(props) =>{
                             ${price} - Cantidad disponible: {_stock}
                         </p>
                         
-                        <ItemCount stockAdd={handlerActionAdd}stockRemove={handlerActionRemove}/>  
+                         
                         </div>
                     </div>  
                 </div>           

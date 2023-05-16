@@ -27,7 +27,7 @@ const useFirestore = ({ nameCollection, documentId }) => {
                 }
             });
         }else if(nameCollection){
-             
+            
             getDocs(collection(db,nameCollection)).then((snapshot) => {
                 const _data = snapshot.docs.map((doc) => {
                     const item = doc.data();
