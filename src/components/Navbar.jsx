@@ -3,10 +3,14 @@ import CarWidget from './CartWidget'
 import ListOptionNavbarComponent from './ListOptionNavbarComponent';
 import { NavLink } from 'react-router-dom';
 import useFetch from '../utils/useFetch';
+import { useContext } from 'react';
+import GeneralContext from '../context/GeneralContext';
+import { routes } from "../utils/Routes";
 
 
 const BASE_URL = "https://fakestoreapi.com/products/categories"
 const Navbar = (props) => {
+  const {cart} = useContext(GeneralContext);
   const {data} = useFetch(BASE_URL);
       // const nameOption = [
       //   { name :"Remeras" , link: "products/category/remeras" },
@@ -29,6 +33,9 @@ const Navbar = (props) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ListOptionNavbarComponent nameOption={data}></ListOptionNavbarComponent>
           </div>
+          <NavLink to={routes.cart}>
+          <span>{cart.lenght}</span>
+          </NavLink>
             <CarWidget/>
         </div>
       </nav>

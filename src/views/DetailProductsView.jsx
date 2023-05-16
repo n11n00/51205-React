@@ -1,13 +1,26 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../utils/useFetch";
+import { useContext } from "react";
+import GeneralContext from "../context/GeneralContext";
 
 const BASE_URL = "https://fakestoreapi.com/products"
 
 const DetailProductsView = () => {
     const { idProduct } = useParams();
+    const {addToCart,cart} = useContext(GeneralContext);
+
+
     const {data} = useFetch(`${BASE_URL}/${idProduct}`);
     const {title, image, description, price, category} = data;
+
+
+    const addBtnAction = () => {
+        addToCart(data);
+        console.log(cart);
+    };
+
+
 
 
     return (
@@ -36,7 +49,7 @@ const DetailProductsView = () => {
                                 <p className="card-text">
                                     <small className="text-muted">${price}</small>
                                 </p>
-                                <button className="btn btn-outline-danger btn-sm">Comprar</button>
+                                <button onClick={addBtnAction} className="btn btn-outline-danger btn-sm">Comprar</button>
                             </div>
                         </div>
                     </div>

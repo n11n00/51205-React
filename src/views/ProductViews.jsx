@@ -2,17 +2,19 @@
 
 import ItemListContainer from '../components/ItemListContainer';
 import ItemComponent from '../components/ItemComponent';
+import useFirestore from '../utils/useFirestore';
 import { useState  } from 'react';
-import useFetch from '../utils/useFetch';
-const BASE_URL = "https://fakestoreapi.com/products"
+// import useFetch from '../utils/useFetch';
+// const BASE_URL = "https://fakestoreapi.com/products"
 
-
+const nameCollection = "items";
+const documentId = "documentId";
 
 
 
 const ProductViews = (props) => { 
     const [count,setCount] = useState(0);
-    const {data, loading} = useFetch(BASE_URL);
+    const {data, loading} = useFirestore({nameCollection,documentId});
     console.log(data)
     
 
