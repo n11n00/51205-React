@@ -32,10 +32,10 @@ function App() {
           <Navbar/>
           <Routes>
 
-            <CarContext.Provider>
+            
               <Route path={routes.root} element={<ProductViews/>}/>
               <Route path={routes.detailProductView} element={<DetailProductsView/>}/>
-            </CarContext.Provider>
+            
 
               <Route path={routes.about} element={<AboutViews/>}/>
               <Route path={routes.categoryView} element={<CategoryView/>}/>

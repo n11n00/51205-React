@@ -16,11 +16,31 @@ const useFirestore = ({ nameCollection, documentId }) => {
 
     useEffect(() => {
         const db = getFirestore();
-        const biciRef = collection(db,nameCollection) 
-        getDocs(biciRef).then((snapshot) => {
-            const _data = snapshot.docs.map(doc => doc.data());
-            setState({...state, data: _data,loading:false });
-        });
+        // const biciRef = collection(db,nameCollection) 
+        
+        if(nameCollection && documentId) {
+
+            getDoc(doc(db,nameCollection,documentId)).then((snapshot)=> {
+                if(snapshot.exists()){
+                    const _data = snapshot.data();
+                    setState({...state, data: _data,loading:false });
+                }
+            });
+        }else if(nameCollection){
+             
+            getDocs(collection(db,nameCollection)).then((snapshot) => {
+                const _data = snapshot.docs.map((doc) => {
+                    const item = doc.data();
+                    item [ 'id' ] = doc.id;
+                    return item;
+
+                });
+        
+                setState({...state, data: _data,loading:false });
+            });
+        }
+
+
     }, [documentId, nameCollection]);
 
     return [state.data, state.loading, state.response, state.error];

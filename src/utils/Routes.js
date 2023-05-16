@@ -3,5 +3,5 @@ export const routes = {
     about: "about",
     detailProductView: "products/detail/:idProduct",
     categoryView: "product/category/:category",
-    cart: "/products/cart"
+    cart: "products/cart"
 };

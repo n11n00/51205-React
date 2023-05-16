@@ -1,17 +1,19 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../utils/useFetch";
+// import useFetch from "../utils/useFetch";
 import { useContext } from "react";
 import GeneralContext from "../context/GeneralContext";
+import useFirestore from "../utils/useFirestore";
 
-const BASE_URL = "https://fakestoreapi.com/products"
+// const BASE_URL = "https://fakestoreapi.com/products"
+const nameCollection = "items"
 
 const DetailProductsView = () => {
-    const { idProduct } = useParams();
+    const { idProduct:documentId } = useParams();
     const {addToCart,cart} = useContext(GeneralContext);
 
 
-    const {data} = useFetch(`${BASE_URL}/${idProduct}`);
+    const {data} = useFirestore ({nameCollection,documentId });
     const {title, image, description, price, category} = data;
 
 

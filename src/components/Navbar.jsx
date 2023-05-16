@@ -2,16 +2,20 @@ import React from 'react'
 import CarWidget from './CartWidget'
 import ListOptionNavbarComponent from './ListOptionNavbarComponent';
 import { NavLink } from 'react-router-dom';
-import useFetch from '../utils/useFetch';
+// import useFetch from '../utils/useFetch';
 import { useContext } from 'react';
 import GeneralContext from '../context/GeneralContext';
 import { routes } from "../utils/Routes";
+import useFirestore from '../utils/useFirestore';
 
 
-const BASE_URL = "https://fakestoreapi.com/products/categories"
+// const BASE_URL = "https://fakestoreapi.com/products/categories"
+const nameCollection = "categories";
+
+
 const Navbar = (props) => {
   const {cart} = useContext(GeneralContext);
-  const {data} = useFetch(BASE_URL);
+  const [data] = useFirestore({nameCollection});
       // const nameOption = [
       //   { name :"Remeras" , link: "products/category/remeras" },
       //   { name :"Pantalones" , link: "products/category/remeras" },
@@ -33,7 +37,7 @@ const Navbar = (props) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ListOptionNavbarComponent nameOption={data}></ListOptionNavbarComponent>
           </div>
-          <NavLink to={routes.cart}>
+          <NavLink to="products/cart">
           <span>{cart.lenght}</span>
           </NavLink>
             <CarWidget/>
