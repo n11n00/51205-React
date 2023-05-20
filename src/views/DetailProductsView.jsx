@@ -1,26 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-// import useFetch from "../utils/useFetch";
 import { useContext } from "react";
 import GeneralContext from "../context/GeneralContext";
 import useFirestore from "../utils/useFirestore";
+import Swal from 'sweetalert2';
 
-// const BASE_URL = "https://fakestoreapi.com/products"
 const nameCollection = "Items"
 
 const DetailProductsView = () => {
     const { idProduct:documentId } = useParams();
     const {addToCart,cart} = useContext(GeneralContext);
-
-
     const [data] = useFirestore ({nameCollection,documentId });
+    const [amount, setAmount] = useState(1);
     const {title, image, description, price, category} = data;
+
+
+    const alertaProductoAgregado = () => {
+        Swal.fire({
+          position: 'middle',
+          icon: 'success',
+          title: 'Se agrego el producto al carrito!',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
 
 
     const addBtnAction = () => {
         addToCart(data);
         console.log(cart);
-        alert("Agregado al carrito!!")
+        alertaProductoAgregado()
     };
 
 
@@ -43,7 +52,7 @@ const DetailProductsView = () => {
                 <div className="card mb-3 shadow-sm py-2 px-6">
                     <div className="row">
                         <div className="col-md-4">
-                            <img width={300} height={300} src={image} alt="" />
+                            <img width={315} height={524} src={image} alt="" />
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
@@ -52,7 +61,23 @@ const DetailProductsView = () => {
                                 <p className="card-text">
                                     <small className="text-muted">${price}</small>
                                 </p>
-                                <button onClick={addBtnAction} className="btn btn-outline-danger btn-sm">Comprar</button>
+                                <button onClick={addBtnAction} className="btn btn-outline-danger btn-sm">Comprar
+                                </button>
+                                <p className="h6 my-5">
+                                    <span> Cantidad: </span>
+                                    {amount}{" "}
+                                    <div className="btn-group">
+                                         <button onClick={() => setAmount(amount + 1)} className="btn btn-outline-secondary btn-sm">
+                                             +
+                                        </button>
+                                        <button
+                                        disabled={amount === 1}
+                                        onClick={() => setAmount(amount - 1)}
+                                        className="btn btn-outline-secondary btn-sm">
+                                             -
+                                    </button>
+                                </div>
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -1,15 +1,22 @@
 import React, { useContext } from "react";
 import GeneralContext from "../context/GeneralContext";
 import ItemComponent from "../components/ItemComponent";
+import BuyComponent from "../components/BuyComponent";
 
 
 const DetailCartView = () => {
     const {cart} = useContext(GeneralContext);
     return(
         <>
-            <div className="container">
-                {cart.map((item,index) => (
-                <ItemComponent key={index} data={item}/>))}
+            <div className="container mt-5">
+                <BuyComponent />
+                <div className="row row-cols-1 row-cols-md-3 g-4">
+                    {cart.map((item,index) => (
+                    <div key={index} className="col-2">
+                    <ItemComponent showDelete data={item}/>
+                    </div>
+                    ))}
+                </div>
             </div>
         </>
     );

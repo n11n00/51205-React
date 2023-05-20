@@ -1,27 +1,27 @@
 import React from 'react'
-import CarWidget from './CartWidget'
 import ListOptionNavbarComponent from './ListOptionNavbarComponent';
 import { NavLink } from 'react-router-dom';
- import useFetch from '../utils/useFetch';
 import { useContext } from 'react';
 import GeneralContext from '../context/GeneralContext';
-import { routes } from "../utils/Routes";
 import useFirestore from '../utils/useFirestore';
+import { useMemo } from 'react';
+import CartWidget from './CartWidget';
 
 
- const BASE_URL = "https://fakestoreapi.com/products/categories"
-// const nameCollection = "categories";
+
+
+ const nameCollection = "categories";
 
 
 const Navbar = (props) => {
   const { cart } = useContext(GeneralContext);
-  const {data} = useFetch(BASE_URL);
-  // const nameOption = [
-  //   { name :"Remeras" , link: "products/category/remeras" },
-  //   { name :"Pantalones" , link: "products/category/remeras" },
-  //   { name :"Camperas" , link: "products/category/remeras" },
-  //   { name :"Camisas" , link: "products/category/remeras" },
-  //   ];
+  const [data] = useFirestore({nameCollection})
+
+  const dataProcess = useMemo (() => {
+    const categoriesObject = data.length !== 0 ? data[0]:[];
+    return "category" in categoriesObject ? categoriesObject.category:[];
+  },[data]);
+  
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -35,12 +35,10 @@ const Navbar = (props) => {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ListOptionNavbarComponent nameOption={data}></ListOptionNavbarComponent>
+            <ListOptionNavbarComponent nameOption={dataProcess}></ListOptionNavbarComponent>
           </div>
           <div>
-           <NavLink to="products/cart">  
-            <button className="btn btn-info btn-sm">Carrito : {cart.length}</button>
-           </NavLink> 
+           <CartWidget/>
            </div>
           
         </div>

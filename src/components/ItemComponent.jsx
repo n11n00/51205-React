@@ -1,33 +1,16 @@
 import React, { useContext, useState } from "react";
-import ItemCount from "./ItemCount";
-import { NavLink } from "react-router-dom";
 import GeneralContext from "../context/GeneralContext";
+import ButtonsComponent from "./ButtonsComponent";
 
 
 const ItemComponent =(props) =>{
 
-    const {data,handlerUpdate} = props;
-    const {id: idProduct, title, image, description, price, stock} =data;
-    const [_stock,_setStock ] = useState (stock || 10);
+    const {data, showInfo, showDelete} = props;
+    const {id: idProduct, title, image, description, price} =data;
     const { removeToCart } = useContext(GeneralContext);
 
-    const handlerActionAdd = () => {
-        if(_stock > 0){
-            _setStock(_stock-1);
-            handlerUpdate ();
-        }else{
-            alert("Sin stock diponible del producto selecionado");
-        }
-    };
-
-    const handlerActionRemove = () => {
-            _setStock(stock+1);
-            handlerUpdate ();
-    }
-
-    // const showShortValue = (value="", lengthMax = 45) => {
-    //     return value.length > lengthMax ? value.substring (0, lengthMax).contact(" ...") : value;
-    // }
+   
+    
 
     const removeThisItem = () => {
         removeToCart(data);
@@ -38,24 +21,26 @@ const ItemComponent =(props) =>{
             <>
 
                 <div className="card shadow-sm">
-                    <div className="card-header">
+                    <h5 className="card-header">
                         {title}
-                        <button className="btn btn-danger btn-sm" onClick={removeThisItem}>x</button>
-                        <NavLink to={`/products/detail/${idProduct}`}>
-                            <button className="btn btn-outline-info btn-sm" onClick={handlerActionAdd}>
-                               + info
-                            </button>
-                        </NavLink>
-                        <img width={300} height={300} src={image} alt="" />
+                        
+                        <ButtonsComponent
+                            showInfo={showInfo} 
+                            showDelete={showDelete} 
+                            idProduct={idProduct}
+                            removeThisItem={removeThisItem} />
+                        
+                        </h5>
+                        <img  width={415} height={624} src={image} alt="" />
                         <div className="card-body">
-                        <p className="text-muted">{description}</p>
-                        <p>
-                            ${price} - Cantidad disponible: {_stock}
+                        <p className="text">{description}</p>
+                        <p className="h6">
+                            Precio - ${price}
                         </p>
                         
                          
                         </div>
-                    </div>  
+                    
                 </div>           
             </>
         );

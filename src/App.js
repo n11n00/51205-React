@@ -2,14 +2,11 @@ import "./App.css";
 import ProductViews from "./views/ProductViews";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import AboutViews from "./views/AboutViews";
-// import DetailProducts from "./views/DetailProductsView";
 import DetailProductsView from "./views/DetailProductsView";
-import CategoryView from "./components/CategoryView";
+import ItemFormView from "./views/ItemFormView";
 import { routes } from "./utils/Routes";
 import GeneralContext from "./context/GeneralContext";
 import { useState } from "react";
-import CarContext from "./context/CarContext";
 import DetailCartView from "./views/DetailCartView";
 
 function App() {
@@ -24,10 +21,14 @@ function App() {
     const newArray = cart.filter(_item => _item.id !== item.id);
     setCart(newArray)
   };
+
+  const clearCart = () => {
+    setCart([])
+  };
   
 
   return (
-    <GeneralContext.Provider value={{addToCart,removeToCart,cart}}>
+    <GeneralContext.Provider value={{addToCart,removeToCart,clearCart,cart}}>
       <BrowserRouter>
           <Navbar/>
           <Routes>
@@ -35,10 +36,8 @@ function App() {
             
               <Route path={routes.root} element={<ProductViews/>}/>
               <Route path={routes.detailProductView} element={<DetailProductsView/>}/>
-            
-
-              <Route path={routes.about} element={<AboutViews/>}/>
-              <Route path={routes.categoryView} element={<CategoryView/>}/>
+              <Route path={routes.eventos} element={<ItemFormView />}></Route>
+              <Route path={routes.categoryView} element={<ProductViews/>}/>
               <Route path={routes.cart} element={<DetailCartView/>}/>
           </Routes>
       </BrowserRouter>
