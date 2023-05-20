@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useContext } from "react";
 import GeneralContext from "../context/GeneralContext";
 import useFirestore from "../utils/useFirestore";
 import Swal from 'sweetalert2';
 
+
 const nameCollection = "Items"
 
-const DetailProductsView = () => {
+const DetailProductsView = (props) => {
+    const {Atras} = props
     const { idProduct:documentId } = useParams();
     const {addToCart,cart} = useContext(GeneralContext);
     const [data] = useFirestore ({nameCollection,documentId });
@@ -39,6 +41,9 @@ const DetailProductsView = () => {
         <>
         <div className="row my-5">
             <div className="col-3 offset-md-3">
+                <NavLink to={`/`}>
+                <button className="btn btn-outline-primary btn-sm">Atras</button>
+                </NavLink>
                 <h2 className="text-danger">Oferta por tiempo limitado !!!</h2>
             </div>
             <div className="col-4">

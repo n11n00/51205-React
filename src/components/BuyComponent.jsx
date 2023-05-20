@@ -2,6 +2,7 @@ import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import GeneralContext from "../context/GeneralContext";
+import Swal from "sweetalert2";
 
 const collectionOrders = "orders";
 
@@ -19,11 +20,24 @@ const BuyComponent = () => {
         return { items, date };
     },[cart]);
 
+
+    const alertaProductoComprado = (_id) => {
+        Swal.fire({
+          position: 'middle',
+          icon: 'success',
+          title: `Orden de compra creado folio: ${_id}`,
+          showConfirmButton: true,
+          timer: 9999
+        })
+      }
+
     const actionBuy = () => {
         const db = getFirestore();
         const orderCollection = collection(db, collectionOrders);
         addDoc(orderCollection, _order).then(({ id })=> {
-            alert(`Orden de compra creado folio: ${id}`);
+            
+            
+            alertaProductoComprado(id);
             clearCart();
             navigate("/");
         });

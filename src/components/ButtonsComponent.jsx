@@ -1,6 +1,6 @@
 
 import { NavLink } from "react-router-dom";
-const ButtonsComponent = ({showDelete,showInfo,removeThisItem,idProduct}) => {
+const ButtonsComponent = ({showDelete,showInfo,removeThisItem,idProduct,Atras}) => {
   return (
     <>
       {showDelete ? (
@@ -17,6 +17,7 @@ const ButtonsComponent = ({showDelete,showInfo,removeThisItem,idProduct}) => {
       ) : (
         ""
       )}
+     
     </>
   );
 };
